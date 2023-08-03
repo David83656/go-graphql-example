@@ -1,0 +1,35 @@
+type Producto {
+  id: ID!
+  nombre: String!
+  marca: String!
+  categoria: String!
+  precio: Float!
+}
+
+type Cliente {
+  id: ID!
+  nombre: String!
+  correoElectronico: String!
+}
+
+type Query {
+  productos: [Producto!]!
+  clientes: [Cliente!]!
+}
+
+input NuevoProducto {
+  nombre: String!
+  marca: String!
+  categoria: String!
+  precio: Float!
+}
+
+input NuevoCliente {
+  nombre: String!
+  correoElectronico: String!
+}
+
+type Mutation {
+  crearProducto(input: NuevoProducto!): Producto!
+  crearCliente(input: NuevoCliente!): Cliente!
+}
