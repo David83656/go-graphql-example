@@ -13,16 +13,16 @@ const (
 )
 
 type ControllerPaintPinturas interface {
-	SaveP(paint *model.NuevoProducto)
+	SaveP(paint *model.Producto)
 	FindAllP() []*model.Producto
 }
 
 type ControllerPaintClientes interface {
-	SaveC(client *model.NuevoCliente)
+	SaveC(client *model.Cliente)
 	FindAllC() []*model.Cliente
 }
 
-func SaveC(document *model.NuevoCliente) interface{} {
+func SaveC(document *model.Cliente) interface{} {
 	client, ctx, cancel, err := database.Connect("mongodb://localhost:27017")
 	if err != nil {
 		panic(err)
@@ -59,7 +59,7 @@ func FindAllC() []*model.Cliente {
 	return results
 }
 
-func SaveP(document *model.NuevoProducto) interface{} {
+func SaveP(document *model.Producto) interface{} {
 	client, ctx, cancel, err := database.Connect("mongodb://localhost:27017")
 	if err != nil {
 		panic(err)
