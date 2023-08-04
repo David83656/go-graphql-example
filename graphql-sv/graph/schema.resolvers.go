@@ -6,29 +6,49 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
+	"github.com/David83656/go-dbgraphql/graphql-sv/controller"
 	"github.com/David83656/go-dbgraphql/graphql-sv/graph/model"
+	"github.com/google/uuid"
 )
 
 // CrearProducto is the resolver for the crearProducto field.
 func (r *mutationResolver) CrearProducto(ctx context.Context, input model.NuevoProducto) (*model.Producto, error) {
-	panic(fmt.Errorf("not implemented: CrearProducto - crearProducto"))
+	nuevoID := uuid.New().String()
+	pintura := &model.Producto{
+		ID:        nuevoID,
+		Nombre:    input.Nombre,
+		Marca:     input.Nombre,
+		Categoria: input.Categoria,
+		Precio:    input.Precio,
+	}
+	controller.SaveP(pintura)
+	return pintura, nil
 }
 
 // CrearCliente is the resolver for the crearCliente field.
 func (r *mutationResolver) CrearCliente(ctx context.Context, input model.NuevoCliente) (*model.Cliente, error) {
-	panic(fmt.Errorf("not implemented: CrearCliente - crearCliente"))
+	nuevoID := uuid.New().String()
+
+	cliente := &model.Cliente{
+		ID:                nuevoID,
+		Nombre:            input.Nombre,
+		CorreoElectronico: input.CorreoElectronico,
+	}
+	controller.SaveC(cliente)
+	return cliente, nil
 }
 
 // Productos is the resolver for the productos field.
 func (r *queryResolver) Productos(ctx context.Context) ([]*model.Producto, error) {
-	panic(fmt.Errorf("not implemented: Productos - productos"))
+	productos := controller.FindAllP()
+	return productos, nil
 }
 
 // Clientes is the resolver for the clientes field.
 func (r *queryResolver) Clientes(ctx context.Context) ([]*model.Cliente, error) {
-	panic(fmt.Errorf("not implemented: Clientes - clientes"))
+	clientes := controller.FindAllC()
+	return clientes, nil
 }
 
 // Mutation returns MutationResolver implementation.
